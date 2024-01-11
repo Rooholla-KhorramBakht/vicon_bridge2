@@ -20,7 +20,6 @@ RUN chmod 0755 /usr/lib/libViconDataStreamSDK_CPP.so /usr/lib/libboost_system-mt
 RUN ldconfig
 # Compile the package
 WORKDIR /home/vicon_bridge2
-RUN /bin/bash install_dds.sh
 RUN . /opt/ros/foxy/setup.bash && colcon build --symlink-install
 # Set the entry point to be the bash
 ENTRYPOINT ["/bin/bash"]
