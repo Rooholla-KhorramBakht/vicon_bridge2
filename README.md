@@ -16,3 +16,11 @@ Then configure the launch file and set the `hostname` to the appropriate IP addr
 source install/setup.bash
 ros2 launch vicon_bridge2 vicon.launch.py
 ```
+### Using Docker
+Docker support has also been provided:
+
+```
+cd vicon_bridge2
+docker build . -t vicon_bridge2
+docker run -it --network host --privileged -it vicon_bridge2
+```
