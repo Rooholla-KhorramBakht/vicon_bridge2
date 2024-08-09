@@ -29,8 +29,11 @@ find_package(rosidl_default_generators REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(Boost REQUIRED COMPONENTS thread date_time) 
 find_package(geometry_msgs REQUIRED)  # Add this line to find geometry_msgs
+find_package(std_msgs REQUIRED)  # Add this line to find std_msgs
 find_package(tf2 REQUIRED)  # Add this line to find tf2
 find_package(tf2_ros REQUIRED)  # Add this line to find tf2_ros
+find_package(vicon_msgs REQUIRED)  # Add this line to find tf2_ros
+
 
 # Compile Vicon SDK from scratch to avoid Boost version mismatch clashes
 file(GLOB_RECURSE vicon_sdk_files "${CMAKE_CURRENT_SOURCE_DIR}/vicon_sdk/**/**.cpp")
@@ -42,7 +45,7 @@ target_link_libraries(vicon_sdk PUBLIC ${Boost_LIBRARIES})
 add_executable(vicon_client src/vicon_bridge2/communicator.cpp)
 # target_link_libraries(vicon_client ViconDataStreamSDK_CPP ${Boost_LIBRARIES})
 target_link_libraries(vicon_client vicon_sdk ${Boost_LIBRARIES})
-ament_target_dependencies(vicon_client "rclcpp" "geometry_msgs" "tf2" "tf2_ros")
+ament_target_dependencies(vicon_client "rclcpp" "geometry_msgs" "std_msgs" "tf2" "tf2_ros" "vicon_msgs")
 
 install(TARGETS vicon_client DESTINATION lib/${PROJECT_NAME})
 

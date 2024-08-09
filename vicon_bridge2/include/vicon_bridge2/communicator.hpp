@@ -10,6 +10,7 @@
 #include <string>
 #include <unistd.h>
 #include <boost/thread.hpp>
+#include <vicon_msgs/msg/markers.hpp>
 
 
 using namespace std;
@@ -24,6 +25,9 @@ private:
     string ns_name;
     map<string, Publisher> pub_map;
     boost::mutex mutex;
+    bool unlabeled_marker_data_enabled;
+    rclcpp::Publisher<vicon_msgs::msg::Markers>::SharedPtr markers_publisher;
+
 
 public:
     Communicator();
