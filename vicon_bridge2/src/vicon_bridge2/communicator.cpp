@@ -82,7 +82,7 @@ void Communicator::get_frame()
     cout << "enabling unlabeled marker data" << endl;
     if (!unlabeled_marker_data_enabled)
     {
-    vicon_client.EnableUnlabeledMarkerData();
+        vicon_client.EnableUnlabeledMarkerData();
     // bool status =  vicon_client.IsUnlabeledMarkerDataEnabled().Enabled;
     // if (!status)
     //     {
