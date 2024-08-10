@@ -83,16 +83,16 @@ void Communicator::get_frame()
     if (!unlabeled_marker_data_enabled)
     {
     vicon_client.EnableUnlabeledMarkerData();
-    bool status =  vicon_client.IsUnlabeledMarkerDataEnabled().Enabled;
-    if (!status)
-        {
-        cout << "Unlabeled marker data not enabled" << endl;
-        }
-    else
-        {
-        cout << "Unlabeled marker data enabled" << endl;
+    // bool status =  vicon_client.IsUnlabeledMarkerDataEnabled().Enabled;
+    // if (!status)
+    //     {
+    //     cout << "Unlabeled marker data not enabled" << endl;
+    //     }
+    // else
+        // {
+        // cout << "Unlabeled marker data enabled" << endl;
         unlabeled_marker_data_enabled = true;
-        }
+        // }
     }
     unsigned int n_markers = 0;
      // Get the current timestamp
@@ -136,7 +136,7 @@ void Communicator::get_frame()
     }
     // get unlabeled markers
     unsigned int UnlabeledMarkerCount = vicon_client.GetUnlabeledMarkerCount().MarkerCount;
-    cout << "Unlabeled Markers (" << UnlabeledMarkerCount << "):" << std::endl;
+    // cout << "Unlabeled Markers (" << UnlabeledMarkerCount << "):" << std::endl;
     for (unsigned int UnlabeledMarkerIndex = 0; UnlabeledMarkerIndex < UnlabeledMarkerCount; ++UnlabeledMarkerIndex)
     {
         // Get the global marker translation
