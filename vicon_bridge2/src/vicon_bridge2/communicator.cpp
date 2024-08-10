@@ -79,20 +79,19 @@ bool Communicator::disconnect()
 
 void Communicator::get_frame()
 {
-    cout << "enabling unlabeled marker data" << endl;
     if (!unlabeled_marker_data_enabled)
     {
-        vicon_client.EnableUnlabeledMarkerData();
-    // bool status =  vicon_client.IsUnlabeledMarkerDataEnabled().Enabled;
-    // if (!status)
-    //     {
-    //     cout << "Unlabeled marker data not enabled" << endl;
-    //     }
-    // else
-        // {
-        // cout << "Unlabeled marker data enabled" << endl;
+    vicon_client.EnableUnlabeledMarkerData();
+    bool status =  vicon_client.IsUnlabeledMarkerDataEnabled().Enabled;
+    if (!status)
+        {
+        cout << "Unlabeled marker data not enabled" << endl;
+        }
+    else
+        {
+        cout << "Unlabeled marker data enabled" << endl;
         unlabeled_marker_data_enabled = true;
-        // }
+        }
     }
     unsigned int n_markers = 0;
      // Get the current timestamp
@@ -113,7 +112,6 @@ void Communicator::get_frame()
     // Count the number of markers
     unsigned int num_subject_markers = vicon_client.GetMarkerCount(this_subject_name).MarkerCount;
     n_markers += num_subject_markers;
-    //std::cout << "    Markers (" << MarkerCount << "):" << std::endl;
     for (unsigned int MarkerIndex = 0; MarkerIndex < num_subject_markers; ++MarkerIndex)
     {
         vicon_msgs::msg::Marker this_marker;
@@ -153,7 +151,7 @@ void Communicator::get_frame()
             markers_msg.markers.push_back(this_marker);
         }
     }
-    // marker_publisher_->publish(markers_msg);
+    marker_pub->publish(markers_msg);
     vicon_client.GetFrame();
 
     Output_GetFrameNumber frame_number = vicon_client.GetFrameNumber();
