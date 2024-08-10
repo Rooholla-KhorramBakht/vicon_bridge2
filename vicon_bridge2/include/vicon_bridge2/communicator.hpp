@@ -4,6 +4,7 @@
 #include "DataStreamClient.h"
 #include "rclcpp/rclcpp.hpp"
 #include "publisher.hpp"
+#include "vicon_bridge2/marker_publisher.hpp"
 #include <iostream>
 #include <map>
 #include <chrono>
@@ -26,8 +27,7 @@ private:
     map<string, Publisher> pub_map;
     boost::mutex mutex;
     bool unlabeled_marker_data_enabled;
-    rclcpp::Publisher<vicon_msgs::msg::Markers>::SharedPtr markers_publisher;
-
+    std::shared_ptr<MarkerPublisher> marker_pub;
 
 public:
     Communicator();

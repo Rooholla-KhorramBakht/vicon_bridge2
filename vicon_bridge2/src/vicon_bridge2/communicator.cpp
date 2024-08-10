@@ -3,6 +3,7 @@
 #include <csignal>
 #include "vicon_msgs/msg/marker.hpp"
 #include "vicon_msgs/msg/markers.hpp"
+#include "vicon_bridge2/marker_publisher.hpp"
 using namespace ViconDataStreamSDK::CPP;
 
 Communicator::Communicator() : Node("vicon")
@@ -15,7 +16,7 @@ Communicator::Communicator() : Node("vicon")
     this->get_parameter("buffer_size", buffer_size);
     this->get_parameter("namespace", ns_name);
     std::string topic_name = ns_name + "/" + "markers";
-    this->create_publisher<vicon_msgs::msg::Markers>(topic_name, 10);
+    marker_pub = std::make_shared<MarkerPublisher>(topic_name, this);
 }
 
 bool Communicator::connect()
@@ -152,7 +153,7 @@ void Communicator::get_frame()
             markers_msg.markers.push_back(this_marker);
         }
     }
-    markers_publisher->publish(markers_msg);
+    // marker_publisher_->publish(markers_msg);
     vicon_client.GetFrame();
 
     Output_GetFrameNumber frame_number = vicon_client.GetFrameNumber();
