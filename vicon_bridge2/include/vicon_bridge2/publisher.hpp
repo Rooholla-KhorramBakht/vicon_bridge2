@@ -54,7 +54,8 @@ public:
         {
             // Send stamped pose messages
             auto pose_msg = std::make_shared<geometry_msgs::msg::PoseStamped>();  
-            pose_msg->header.stamp = node_->get_clock()->now();
+            rclcpp::Time now = node_->get_clock()->now();
+            pose_msg->header.stamp = now;
             pose_msg->header.frame_id = topic_name_;
             pose_msg->pose.position.x = p.translation[0]/1000.0;
             pose_msg->pose.position.y = p.translation[1]/1000.0;
@@ -67,7 +68,7 @@ public:
 
             // Send TF2 messages
             geometry_msgs::msg::TransformStamped t;
-            t.header.stamp = node_->get_clock()->now();
+            t.header.stamp = now;
             t.header.frame_id = "vicon/World";
             t.child_frame_id = topic_name_;
             t.transform.translation.x = p.translation[0]/1000.0;

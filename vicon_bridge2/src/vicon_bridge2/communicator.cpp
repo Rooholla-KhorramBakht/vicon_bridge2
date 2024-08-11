@@ -97,11 +97,10 @@ void Communicator::get_frame()
      // Get the current timestamp
     rclcpp::Time current_time = this->now();
     // Extract seconds and nanoseconds from the timestamp
-    int64_t seconds = current_time.seconds();
-    int32_t nanoseconds = current_time.nanoseconds();
+    rclcpp::Time now = this->get_clock()->now();
+
     vicon_msgs::msg::Markers markers_msg;
-    markers_msg.header.stamp.sec = seconds;
-    markers_msg.header.stamp.nanosec = nanoseconds;
+    markers_msg.header.stamp = now;
 
     // Count the number of subjects
     unsigned int SubjectCount = vicon_client.GetSubjectCount().SubjectCount;
@@ -191,8 +190,6 @@ void Communicator::get_frame()
             current_position.subject_name = subject_name;
             current_position.translation_type = "Global";
             current_position.frame_number = frame_number.FrameNumber;
-            current_position.time_sec = seconds;
-            current_position.time_nsec = nanoseconds;
 
             // send position to publisher
             boost::mutex::scoped_try_lock lock(mutex);
