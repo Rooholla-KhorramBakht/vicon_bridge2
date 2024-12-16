@@ -4,6 +4,9 @@
 #include "vicon_msgs/msg/marker.hpp"
 #include "vicon_msgs/msg/markers.hpp"
 #include "vicon_bridge2/marker_publisher.hpp"
+#include "dds/dds.hpp"
+using namespace org::eclipse::cyclonedds;
+// #include "dds/dds.hpp"
 using namespace ViconDataStreamSDK::CPP;
 
 Communicator::Communicator() : Node("vicon")

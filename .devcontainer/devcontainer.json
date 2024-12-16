@@ -1,0 +1,23 @@
+// https://containers.dev/implementors/json_reference/
+{
+    "name": "vicon-bridge2", 
+    "dockerComposeFile": "docker-compose.yaml",
+    "workspaceFolder": "/home/vicon-ws/src/vicon_bridge2",
+    "service": "vicon-bridge2",
+    "postCreateCommand": "cd /home/vicon-ws/src/vicon_bridge2 && pip3 install -e .",
+    // "remoteUser": "root", 
+    "containerEnv": 
+    {
+      "VICON_IP": "192.168.2.70"
+    },
+    "customizations": 
+    {
+      "vscode": {
+        "extensions": [
+          "dbaeumer.vscode-eslint", // Existing ESLint extension
+          "ms-python.python", // Python extension by Microsoft
+          "ms-toolsai.jupyter" // Jupyter extension by Microsoft
+        ]
+      }
+    }
+  }

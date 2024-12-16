@@ -1,9 +1,10 @@
 from launch import LaunchDescription
 from launch_ros.actions import Node
+import os
 
 def generate_launch_description():
 
-    hostname = '192.168.123.70'
+    hostname = os.environ['VICON_IP']
     buffer_size = 200
     topic_namespace = 'vicon'
 

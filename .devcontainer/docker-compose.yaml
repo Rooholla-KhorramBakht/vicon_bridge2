@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  vicon-bridge2:
+    build: 
+      dockerfile: .devcontainer/Dockerfile
+      context: ../
+    container_name: vicon-bridge2
+    network_mode: host
+    privileged: true
+    volumes:
+      - ../:/home/vicon-ws/src/vicon_bridge2
+      - /dev/input:/dev/input
+    environment:
+      - VICON_IP=${VICON_IP}
+    stdin_open: true
+    tty: true

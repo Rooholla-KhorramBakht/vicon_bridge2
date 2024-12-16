@@ -1,0 +1,7 @@
+    module vicon_bridge2{
+        struct Pose6D {
+            uint64 stamp_nano_secs;
+            double q[7];
+            double t[3];
+        };
+    };

@@ -5,9 +5,12 @@
 #include "geometry_msgs/msg/pose_stamped.hpp"
 #include <tf2_ros/transform_broadcaster.h>
 #include <geometry_msgs/msg/transform_stamped.hpp>
+#include "Pose6D.hpp"
+#include "vicon_bridge2/dds_publisher.hpp"
 // #include "pycon/vicon.hpp"
 
 // Struct used to hold segment data to transmit to the Publisher class.
+using namespace vicon_bridge2;
 struct PositionStruct
 {
     double translation[3];
@@ -30,6 +33,7 @@ private:
     std::string topic_name_;
     std::unique_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
     rclcpp::Node* node_;
+    std::unique_ptr<DDSPublisher<Pose6D>> dds_publisher_;
 public:
     bool is_ready = false;
 
@@ -42,6 +46,7 @@ public:
         topic_name_ = topic_name;
         tf_broadcaster_ =
         std::make_unique<tf2_ros::TransformBroadcaster>(node);
+        dds_publisher_ = std::make_unique<DDSPublisher<Pose6D>>(topic_name);
         node_ = node;
     }
 
@@ -79,6 +84,14 @@ public:
             t.transform.rotation.z = p.rotation[2];
             t.transform.rotation.w = p.rotation[3];
             tf_broadcaster_->sendTransform(t);
+            Pose6D dds_msg;
+            for(int i=0; i<4; i++)
+                dds_msg.q()[i] = p.rotation[i];
+            for(int i=0; i<3; i++)
+                dds_msg.t()[i] = p.translation[i]; 
+            dds_msg.stamp_nano_secs() = now.nanoseconds();
+            dds_publisher_->publish(dds_msg);
+            
         }
     }
 };
